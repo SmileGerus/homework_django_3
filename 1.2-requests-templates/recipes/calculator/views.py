@@ -28,3 +28,17 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
+
+
+def calculator(request):
+    recipes = DATA.copy()
+    servings = int(request.GET.get('servings', 1))
+    recipe = str(request).split()[-1].split('/')[1]
+    for i in recipes[recipe]:
+        recipes[recipe][i] *= servings
+    context = {
+        'recipe': recipes[recipe]
+    }
+    print(DATA)
+    return render(request, 'calculator/index.html', context)
+
